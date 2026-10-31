@@ -80,7 +80,7 @@ powershell -ExecutionPolicy Bypass -File .\deploy-gitee.ps1
 
 因此推荐两种方式：
 
-1. **Gitee 存代码 + 静态托管平台**：把仓库连接到 Cloudflare Pages、腾讯云 EdgeOne Pages、Vercel 或 Netlify，构建命令留空、输出目录填 `/` 即可。
+1. **Gitee 存代码 + 静态托管平台**：在 Cloudflare Pages（Direct Upload）、腾讯云 EdgeOne Pages、Vercel CLI 或 Netlify Drop 里直接上传整个目录，构建命令留空、输出目录填 `/` 即可。
 2. **Gitee 存代码 + 自己的服务器**：把整个目录丢到 Nginx 的静态目录即可。
 
 页面本身没有构建步骤，任何静态托管都能直接跑。
