@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="blush">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fbf4ee">
+  <meta name="description" content="一个只属于两个人的恋爱小屋：纪念日、心愿清单、心情天气、回忆相册、悄悄话信箱和默契挑战。所有数据只保存在你的浏览器里。">
+  <meta property="og:title" content="我们的小宇宙 · 恋爱档案馆">
+  <meta property="og:description" content="把平凡的日子，过成闪闪发光的纪念日。">
+  <meta property="og:type" content="website">
+  <title>我们的小宇宙 · 恋爱档案馆</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23ff5c8a'/%3E%3Cpath d='M32 50S12 38 12 25.5C12 18.6 17.4 14 23.2 14c3.8 0 7 1.9 8.8 4.8C33.8 15.9 37 14 40.8 14 46.6 14 52 18.6 52 25.5 52 38 32 50 32 50Z' fill='%23fff6f1'/%3E%3C/svg%3E">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <svg class="svg-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 17.5h.01M12 17.5h.01"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z"/><path d="m19 15 .7 2.3L22 18l-2.3.7L19 21l-.7-2.3L16 18l2.3-.7L19 15Z"/><path d="m5 2 .6 2.4L8 5l-2.4.6L5 8l-.6-2.4L2 5l2.4-.6L5 2Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4.5 12.5 5 5 10-11"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8.5h3l1.5-2.5h7L17 8.5h3a1 1 0 0 1 1 1V19a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13.5" r="4"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3.5 7 7.1 5.4a2.4 2.4 0 0 0 2.8 0L20.5 7"/></symbol>
+    <symbol id="i-game" viewBox="0 0 24 24"><path d="M8 8h8a5 5 0 0 1 4.8 6.4l-.8 2.7a2.4 2.4 0 0 1-4 1L14.5 17h-5L8 18.1a2.4 2.4 0 0 1-4-1l-.8-2.7A5 5 0 0 1 8 8Z"/><path d="M8 11v3M6.5 12.5h3M16 12h.01M18 13.5h.01"/></symbol>
+    <symbol id="i-wheel" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6.5 6.2M12 12 5.4 18.2M12 12l8.7-2.5M12 12 3.3 9.5"/><circle cx="12" cy="12" r="2.2"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.6v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M4 20h16"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 20h16"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="m8.2 10.8 7.6-3.6M8.2 13.2l7.6 3.6"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M9 7H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h3v1a3 3 0 0 1-3 3M21 7h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h3v1a3 3 0 0 1-3 3"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 4v16m0 0-6-6M12 20l6-6"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L20 8l-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="m21 3-7.5 18-3.2-7.3L3 10.5 21 3Z"/><path d="M10.3 13.7 21 3"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 8.2A7 7 0 0 1 19.5 12M17.9 15.8A7 7 0 0 1 4.5 12"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-cake" viewBox="0 0 24 24"><path d="M4 21h16M5 21v-7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v7M4 16c1.5 1 2.5 1 4 0s2.5-1 4 0 2.5 1 4 0 2.5-1 4 0M12 8V5M12 5c-.8-.8-.8-2 0-2.5.8.5.8 1.7 0 2.5Z"/></symbol>
+    <symbol id="i-plane" viewBox="0 0 24 24"><path d="m21 3-8.5 18-2.2-7.3L3 11.5 21 3Z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3Z"/></symbol>
+    <symbol id="i-ring" viewBox="0 0 24 24"><circle cx="12" cy="15" r="6"/><path d="m9 8 3-5 3 5M12 10v2"/></symbol>
+  </svg>
+
+  <header class="topbar" id="topbar">
+    <a class="brand" href="#home" aria-label="回到首页">
+      <span class="brand-mark"><svg class="icon"><use href="#i-heart"></use></svg></span>
+      <span class="brand-type"><strong>OUR LITTLE</strong><em>UNIVERSE</em></span>
+    </a>
+    <nav class="desktop-nav" aria-label="主导航">
+      <a href="#time" data-nav="time">时光</a>
+      <a href="#wishes" data-nav="wishes">心愿</a>
+      <a href="#mood" data-nav="mood">心情</a>
+      <a href="#photos" data-nav="photos">相册</a>
+      <a href="#letters" data-nav="letters">信箱</a>
+      <a href="#quiz" data-nav="quiz">默契</a>
+      <a href="#wheel" data-nav="wheel">转盘</a>
+    </nav>
+    <div class="top-actions">
+      <button class="icon-btn music-btn" id="musicBtn" type="button" aria-label="开启心动旋律" aria-pressed="false" title="心动旋律">
+        <svg class="icon"><use href="#i-music"></use></svg>
+        <span class="music-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+      <button class="icon-btn" id="settingsBtn" type="button" aria-label="打开小屋设置" title="小屋设置">
+        <svg class="icon"><use href="#i-settings"></use></svg>
+      </button>
+      <button class="btn btn-small btn-share" id="shareBtn" type="button">
+        <svg class="icon"><use href="#i-share"></use></svg>分享小屋
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-bg" aria-hidden="true">
+        <span class="blob blob-a"></span>
+        <span class="blob blob-b"></span>
+        <span class="blob blob-c"></span>
+        <span class="hero-grid-lines"></span>
+      </div>
+      <canvas class="heart-canvas" id="heartCanvas" aria-hidden="true"></canvas>
+
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow reveal"><span class="eyebrow-dot"></span> A LITTLE UNIVERSE FOR TWO <span class="eyebrow-year" id="estYear">EST. 2024</span></p>
+          <h1 class="hero-title reveal" data-delay="1">
+            <span id="heroNameA">阿伟</span><span class="amp" aria-hidden="true">&amp;</span><span id="heroNameB">欣欣</span>
+          </h1>
+          <div class="hero-meta reveal" data-delay="2">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span>在一起的第 <b id="daysTogether">0</b> 天</span>
+            <span class="meta-divider" aria-hidden="true"></span>
+            <time id="liveClock" datetime="">00:00:00</time>
+          </div>
+          <p class="hero-lede reveal" data-delay="3">把每一个普通的日子，<br>过成只属于我们的纪念日。</p>
+          <div class="hero-actions reveal" data-delay="4">
+            <button class="btn btn-primary" type="button" data-scroll="#mood">
+              <svg class="icon"><use href="#i-edit"></use></svg>写下今天
+            </button>
+            <button class="btn btn-ghost" id="quoteBtn" type="button">
+              <svg class="icon"><use href="#i-sparkles"></use></svg>抽一句情话
+            </button>
+          </div>
+          <div class="hero-note reveal" data-delay="5">
+            <span class="tiny-label">TODAY'S NOTE</span>
+            <p id="heroNote">今天也是想和你一起浪费的一天。</p>
+          </div>
+        </div>
+
+        <div class="orb-stage reveal" data-delay="2" aria-hidden="true">
+          <div class="orbit orbit-a"><span class="orbit-dot"></span><span class="orbit-label">SINCE <b id="orbitYear">2024</b></span></div>
+          <div class="orbit orbit-b"><span class="orbit-dot"></span><span class="orbit-label">2 PEOPLE · 1 STORY</span></div>
+          <div class="orbit orbit-c"><span class="orbit-dot"></span><span class="orbit-label">LOVE, EVERYDAY</span></div>
+          <div class="orb">
+            <span class="orb-shine"></span>
+            <div class="orb-inner">
+              <span class="orb-kicker">LOVE IS</span>
+              <span class="orb-word" id="orbWord">everyday</span>
+              <div class="orb-names"><span id="orbInitialA">阿</span><span class="orb-heart">♥</span><span id="orbInitialB">欣</span></div>
+              <span class="orb-foot">A LITTLE UNIVERSE FOR TWO</span>
+            </div>
+          </div>
+          <span class="sticker sticker-top">100%<small>IN LOVE</small></span>
+          <span class="sticker sticker-side">ADMIT TWO<small>FOREVER</small></span>
+          <button class="heart-burst" id="heartBurstBtn" type="button" aria-label="点亮爱心">
+            <svg class="icon"><use href="#i-heart"></use></svg>
+          </button>
+          <span class="spark spark-a">✦</span>
+          <span class="spark spark-b">✧</span>
+          <span class="spark spark-c">✦</span>
+        </div>
+      </div>
+
+      <div class="hero-bottom">
+        <div class="hero-stats">
+          <div class="stat"><b id="statDays">0</b><span>相爱天数</span></div>
+          <div class="stat"><b id="statWishes">0</b><span>愿望实现</span></div>
+          <div class="stat"><b id="statNotes">0</b><span>甜蜜留言</span></div>
+          <div class="stat"><b id="statQuiz">0<small>%</small></b><span>默契指数</span></div>
+        </div>
+        <a class="scroll-hint" href="#time">
+          <span>SCROLL TO EXPLORE</span>
+          <svg class="icon"><use href="#i-arrow-down"></use></svg>
+        </a>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>LOVE IS IN THE LITTLE THINGS</span><i>♥</i>
+        <span>把日子过成诗</span><i>✦</i>
+        <span>YOU &amp; ME, ALWAYS</span><i>♥</i>
+        <span>来日方长，慢慢喜欢你</span><i>✧</i>
+        <span>LOVE IS IN THE LITTLE THINGS</span><i>♥</i>
+        <span>把日子过成诗</span><i>✦</i>
+        <span>YOU &amp; ME, ALWAYS</span><i>♥</i>
+        <span>来日方长，慢慢喜欢你</span><i>✧</i>
+      </div>
+    </div>
+
+    <section class="section section-time" id="time">
+      <div class="section-inner">
+        <header class="section-head">
+          <div class="section-heading">
+            <p class="section-label"><span>01</span> OUR TIMELINE</p>
+            <h2>把日子，<em>过成纪念日</em></h2>
+            <p class="section-desc">重要的不是哪一天，而是和谁一起数着日子。</p>
+          </div>
+          <button class="btn btn-ghost" id="addAnniversaryBtn" type="button">
+            <svg class="icon"><use href="#i-plus"></use></svg>添加纪念日
+          </button>
+        </header>
+
+        <div class="countdown-layout">
+          <article class="next-card">
+            <div class="next-card-head">
+              <span class="tiny-label">NEXT MILESTONE</span>
+              <span class="next-badge" id="nextBadge">YEARLY</span>
+            </div>
+            <div class="next-card-body">
+              <p class="next-eyebrow">下一个值得期待的日子</p>
+              <h3 id="nextTitle">在一起纪念日</h3>
+              <div class="countdown" id="countdown" aria-live="polite">
+                <div class="cd-block"><b id="cdDays">00</b><span>天</span></div>
+                <i class="cd-colon">:</i>
+                <div class="cd-block"><b id="cdHours">00</b><span>时</span></div>
+                <i class="cd-colon">:</i>
+                <div class="cd-block"><b id="cdMinutes">00</b><span>分</span></div>
+                <i class="cd-colon">:</i>
+                <div class="cd-block"><b id="cdSeconds">00</b><span>秒</span></div>
+              </div>
+              <p class="next-date" id="nextDate">正在计算…</p>
+            </div>
+            <div class="next-card-foot">
+              <div class="next-progress"><span id="nextProgress"></span></div>
+              <p id="nextHint">每过一天，就多爱你一点。</p>
+            </div>
+            <span class="next-ring" aria-hidden="true"></span>
+            <span class="next-flower" aria-hidden="true">✿</span>
+          </article>
+
+          <div class="anniversary-column">
+            <div class="anniversary-list" id="anniversaryList"></div>
+            <button class="add-card" id="addAnniversaryBtn2" type="button">
+              <span class="add-card-icon"><svg class="icon"><use href="#i-plus"></use></svg></span>
+              <span><strong>记录一个新的纪念日</strong><small>生日、第一次旅行、属于你们的任何一天</small></span>
+            </button>
+            <aside class="together-card">
+              <div class="together-card-top">
+                <span class="tiny-label">TOGETHER FOR</span>
+                <span class="together-flower" aria-hidden="true">✿</span>
+              </div>
+              <p class="together-number"><b id="togetherDaysAside">0</b><span>天</span></p>
+              <p class="together-copy">从 <b id="togetherSinceAside">2024.05.20</b> 开始，<br>每一天都算数。</p>
+              <div class="together-line"><span></span></div>
+            </aside>
+          </div>
+        </div>
+
+        <div class="milestone-row" id="milestoneRow"></div>
+      </div>
+    </section>
+
+    <section class="section section-tinted section-wishes" id="wishes">
+      <div class="section-inner">
+        <header class="section-head">
+          <div class="section-heading">
+            <p class="section-label"><span>02</span> OUR BUCKET LIST</p>
+            <h2>想和你，<em>做很多很多事</em></h2>
+            <p class="section-desc">把“以后有空”变成“我们已经做过”。</p>
+          </div>
+          <div class="section-tag">已实现 <b id="wishDoneTop">0</b> 件</div>
+        </header>
+
+        <div class="wish-layout">
+          <aside class="wish-summary">
+            <div class="progress-ring" id="wishRing" style="--p:0">
+              <div class="progress-ring-inner">
+                <b id="wishPercent">0%</b>
+                <span>完成度</span>
+              </div>
+            </div>
+            <h3>我们的愿望清单</h3>
+            <p class="wish-count"><b id="wishDone">0</b> / <span id="wishTotal">0</span> 已实现</p>
+            <div class="wish-filters" id="wishFilters" role="group" aria-label="筛选心愿">
+              <button class="is-active" type="button" data-filter="all">全部</button>
+              <button type="button" data-filter="todo">未完成</button>
+              <button type="button" data-filter="done">已完成</button>
+            </div>
+            <div class="wish-note">
+              <svg class="icon"><use href="#i-quote"></use></svg>
+              <p>愿望不用很大，<br>只要清单里都有彼此。</p>
+            </div>
+          </aside>
+
+          <div class="wish-main">
+            <form class="inline-form wish-form" id="wishForm">
+              <label class="sr-only" for="wishInput">写下新的愿望</label>
+              <input id="wishInput" type="text" maxlength="60" placeholder="想和 TA 一起做的事…" autocomplete="off">
+              <label class="sr-only" for="wishCategory">愿望分类</label>
+              <select id="wishCategory">
+                <option value="旅行">旅行</option>
+                <option value="美食">美食</option>
+                <option value="日常">日常</option>
+                <option value="纪念">纪念</option>
+                <option value="大胆一点">大胆一点</option>
+              </select>
+              <button class="btn btn-primary" type="submit"><svg class="icon"><use href="#i-plus"></use></svg>加入清单</button>
+            </form>
+            <ul class="wish-list" id="wishList"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-mood" id="mood">
+      <div class="section-inner">
+        <header class="section-head">
+          <div class="section-heading">
+            <p class="section-label"><span>03</span> MENTAL WEATHER</p>
+            <h2>今天的心情，<em>是什么天气</em></h2>
+            <p class="section-desc">不用每次都说得清楚，但希望你能被看见。</p>
+          </div>
+          <div class="mood-together" id="moodTogether">
+            <span class="mood-together-dot"></span>
+            <span>等你们记录今天的心情</span>
+          </div>
+        </header>
+
+        <div class="mood-grid">
+          <article class="mood-card" data-person="a">
+            <header class="mood-card-head">
+              <div class="avatar" id="moodAvatarA">阿</div>
+              <div class="mood-person">
+                <h3 id="moodNameA">阿伟</h3>
+                <span>今天的心情</span>
+              </div>
+              <time class="mood-date" id="moodDateA">--</time>
+            </header>
+            <div class="mood-options" data-person="a" role="group" aria-label="选择今天的心情"></div>
+            <div class="mood-selected" id="moodSelectedA"><span>还没有记录，选一个最像今天的表情吧。</span></div>
+            <label class="mood-note-label" for="moodNoteA">想对 TA 说</label>
+            <textarea class="mood-note" id="moodNoteA" data-person="a" maxlength="120" rows="2" placeholder="今天想被怎样抱抱？"></textarea>
+            <button class="btn btn-small btn-soft" type="button" data-save-mood="a">保存心情</button>
+          </article>
+
+          <article class="mood-card" data-person="b">
+            <header class="mood-card-head">
+              <div class="avatar avatar-alt" id="moodAvatarB">欣</div>
+              <div class="mood-person">
+                <h3 id="moodNameB">欣欣</h3>
+                <span>今天的心情</span>
+              </div>
+              <time class="mood-date" id="moodDateB">--</time>
+            </header>
+            <div class="mood-options" data-person="b" role="group" aria-label="选择今天的心情"></div>
+            <div class="mood-selected" id="moodSelectedB"><span>还没有记录，选一个最像今天的表情吧。</span></div>
+            <label class="mood-note-label" for="moodNoteB">想对 TA 说</label>
+            <textarea class="mood-note" id="moodNoteB" data-person="b" maxlength="120" rows="2" placeholder="今天想被怎样抱抱？"></textarea>
+            <button class="btn btn-small btn-soft" type="button" data-save-mood="b">保存心情</button>
+          </article>
+        </div>
+
+        <div class="week-mood">
+          <div class="week-mood-head">
+            <div>
+              <span class="tiny-label">LAST 7 DAYS</span>
+              <h3>这一周的心情天气</h3>
+            </div>
+            <p>两颗心的阴晴圆缺，都值得被记住。</p>
+          </div>
+          <div class="week-strip" id="weekMood"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-night section-photos" id="photos">
+      <div class="section-inner">
+        <header class="section-head">
+          <div class="section-heading">
+            <p class="section-label"><span>04</span> OUR FILM ROLL</p>
+            <h2>把今天，<em>存进胶卷</em></h2>
+            <p class="section-desc">照片会褪色，但那一刻的心动不会。</p>
+          </div>
+          <button class="btn btn-light" id="uploadPhotoBtn" type="button">
+            <svg class="icon"><use href="#i-camera"></use></svg>放入新照片
+          </button>
+          <input type="file" id="photoInput" accept="image/*" multiple hidden>
+        </header>
+
+        <div class="photo-wall" id="photoWall" aria-live="polite"></div>
+        <p class="photo-tip"><svg class="icon"><use href="#i-lock"></use></svg>照片只保存在这台设备的浏览器里，不会上传到任何服务器。</p>
+      </div>
+      <span class="night-glow night-glow-a" aria-hidden="true"></span>
+      <span class="night-glow night-glow-b" aria-hidden="true"></span>
+    </section>
+
+    <section class="section section-letters" id="letters">
+      <div class="section-inner">
+        <header class="section-head">
+          <div class="section-heading">
+            <p class="section-label"><span>05</span> OUR MAILBOX</p>
+            <h2>有些话，<em>想慢慢说给你听</em></h2>
+            <p class="section-desc">写一封信，寄给今天的我们，或未来的我们。</p>
+          </div>
+          <button class="btn btn-ghost" id="randomLetterBtn" type="button">
+            <svg class="icon"><use href="#i-sparkles"></use></svg>随机读一封
+          </button>
+        </header>
+
+        <div class="letter-layout">
+          <form class="letter-compose" id="letterForm">
+            <div class="compose-head">
+              <span class="tiny-label">WRITE A LETTER</span>
+              <label class="author-select">
+                <span>署名</span>
+                <select id="letterAuthor"></select>
+              </label>
+            </div>
+            <label class="sr-only" for="letterText">写下想说的话</label>
+            <textarea id="letterText" maxlength="500" rows="5" placeholder="亲爱的我们：&#10;&#10;今天想告诉你……"></textarea>
+            <div class="compose-foot">
+              <label class="open-date">
+                <svg class="icon"><use href="#i-lock"></use></svg>
+                <span>定时开启</span>
+                <input type="date" id="letterOpenAt">
+              </label>
+              <button class="btn btn-primary" type="submit">
+                <svg class="icon"><use href="#i-send"></use></svg>投进信箱
+              </button>
+            </div>
+            <p class="compose-tip">不填日期就现在开启；填了日期，就等那一天再一起读。</p>
+          </form>
+
+          <div class="letter-side">
+            <div class="letter-stack" id="letterList"></div>
+            <aside class="letter-future">
+              <span class="letter-future-stamp">FOREVER<small>TO US</small></span>
+              <div class="letter-future-body">
+                <span class="tiny-label">A LETTER TO THE FUTURE</span>
+                <h3>把想说的话，<br>寄给未来的我们。</h3>
+                <p>选一个特别的日子，让这封信在那一刻醒来。</p>
+                <button class="btn btn-soft btn-small" id="futureLetterBtn" type="button">写一封未来信<svg class="icon"><use href="#i-arrow-down"></use></svg></button>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tinted section-quiz" id="quiz">
+      <div class="section-inner">
+        <header class="section-head">
+          <div class="section-heading">
+            <p class="section-label"><span>06</span> HOW WELL DO WE KNOW</p>
+            <h2>关于你，<em>我想多懂一点</em></h2>
+            <p class="section-desc">一个人先答，另一个人来猜。看看你们的默契，是不是比想象中更好。</p>
+          </div>
+          <div class="best-score"><span>历史最佳</span><b id="quizBest">--</b></div>
+        </header>
+
+        <div class="quiz-layout">
+          <aside class="quiz-aside">
+            <div class="quiz-illustration" aria-hidden="true">
+              <span class="quiz-orbit"></span>
+              <span class="quiz-face face-a">?</span>
+              <span class="quiz-face face-b">?</span>
+              <span class="quiz-spark">✦</span>
+            </div>
+            <h3>双人默契挑战</h3>
+            <p>6 道题，先由一位写下真实答案，再把手机交给另一位来猜。答案不会上传，只留在你们之间。</p>
+            <ol class="quiz-steps">
+              <li><span>1</span>TA 先答</li>
+              <li><span>2</span>你再来猜</li>
+              <li><span>3</span>揭晓默契值</li>
+            </ol>
+          </aside>
+
+          <div class="quiz-card" id="quizCard">
+            <div class="quiz-start" id="quizStart">
+              <span class="quiz-kicker">READY WHEN YOU ARE</span>
+              <h3>准备好，把心交给对方猜一猜了吗？</h3>
+              <p>建议两个人一起完成，一个人作答时另一个人先不要偷看。</p>
+              <button class="btn btn-primary" id="quizStartBtn" type="button">开始默契挑战<svg class="icon"><use href="#i-chevron-right"></use></svg></button>
+            </div>
+            <div class="quiz-play is-hidden" id="quizPlay">
+              <div class="quiz-play-head">
+                <div>
+                  <span class="tiny-label" id="quizPhaseLabel">YOUR TURN</span>
+                  <h3 id="quizPhaseTitle">先由 阿伟 作答</h3>
+                </div>
+                <span class="quiz-counter" id="quizCounter">1 / 6</span>
+              </div>
+              <div class="quiz-progress"><span id="quizProgress"></span></div>
+              <div class="quiz-question" id="quizQuestion"></div>
+              <div class="quiz-options" id="quizOptions"></div>
+              <p class="quiz-hint" id="quizHint">凭第一直觉选就好。</p>
+            </div>
+            <div class="quiz-handoff is-hidden" id="quizHandoff">
+              <span class="handoff-icon">⇄</span>
+              <span class="tiny-label">PASS THE PHONE</span>
+              <h3>答案已封存，把手机交给 <b id="handoffName">欣欣</b></h3>
+              <p>现在轮到 TA 来猜：刚才那些答案，会是什么呢？</p>
+              <button class="btn btn-primary" id="quizHandoffBtn" type="button">我准备好了，开始猜</button>
+            </div>
+            <div class="quiz-result is-hidden" id="quizResult">
+              <div class="result-ring" id="resultRing" style="--p:0">
+                <div class="result-ring-inner"><b id="resultScore">0</b><span>分</span></div>
+              </div>
+              <span class="tiny-label">YOUR SYNC SCORE</span>
+              <h3 id="resultTitle">心有灵犀</h3>
+              <p id="resultDesc">你们比想象中更懂彼此。</p>
+              <div class="result-list" id="resultList"></div>
+              <div class="result-actions">
+                <button class="btn btn-primary" id="quizRestartBtn" type="button"><svg class="icon"><use href="#i-refresh"></use></svg>再挑战一次</button>
+                <button class="btn btn-ghost" id="quizSwapBtn" type="button">换 TA 出题</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-wheel" id="wheel">
+      <div class="section-inner">
+        <header class="section-head">
+          <div class="section-heading">
+            <p class="section-label"><span>07</span> LET FATE DECIDE</p>
+            <h2>今天，<em>听命运的</em></h2>
+            <p class="section-desc">选择困难的时候，就把决定权交给一个小小的转盘。</p>
+          </div>
+          <button class="btn btn-ghost" id="editWheelBtn" type="button">
+            <svg class="icon"><use href="#i-edit"></use></svg>编辑选项
+          </button>
+        </header>
+
+        <div class="wheel-layout">
+          <div class="wheel-copy">
+            <div class="wheel-tabs" id="wheelTabs" role="tablist" aria-label="选择转盘主题">
+              <button class="is-active" type="button" role="tab" aria-selected="true" data-wheel="food">吃什么</button>
+              <button type="button" role="tab" aria-selected="false" data-wheel="place">去哪玩</button>
+              <button type="button" role="tab" aria-selected="false" data-wheel="chore">谁来做</button>
+            </div>
+            <h3 id="wheelTitle">今天吃什么？</h3>
+            <p id="wheelDesc">把“随便”从今晚的对话里删掉。</p>
+            <div class="wheel-result" id="wheelResult">
+              <span class="tiny-label">THE WHEEL SAYS</span>
+              <p>转一下，让晚餐自己出现。</p>
+            </div>
+            <div class="wheel-legend" id="wheelLegend"></div>
+          </div>
+
+          <div class="wheel-stage">
+            <div class="wheel-pointer" aria-hidden="true"></div>
+            <div class="wheel-canvas-wrap">
+              <canvas id="wheelCanvas" width="640" height="640" aria-label="选项转盘"></canvas>
+              <span class="wheel-hub" aria-hidden="true"><svg class="icon"><use href="#i-heart"></use></svg></span>
+            </div>
+            <button class="btn btn-primary wheel-spin" id="spinBtn" type="button"><svg class="icon"><use href="#i-wheel"></use></svg>转一下</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-badges" id="badges">
+      <div class="section-inner">
+        <header class="section-head section-head-small">
+          <div class="section-heading">
+            <p class="section-label"><span>08</span> LOVE ACHIEVEMENTS</p>
+            <h2>我们的<em>小小成就</em></h2>
+          </div>
+          <div class="section-tag"><b id="badgeCount">0</b> / 8 已点亮</div>
+        </header>
+        <div class="badge-grid" id="badgeGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-orbit" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="footer-inner">
+      <span class="footer-mark"><svg class="icon"><use href="#i-heart"></use></svg></span>
+      <p class="footer-eyebrow">TO BE CONTINUED</p>
+      <h2>愿我们，<em>来日方长</em></h2>
+      <p class="footer-desc">这个小屋没有观众，只有你们两个人。<br>所有数据都只保存在你的浏览器里，不上传、不追踪。</p>
+      <div class="footer-actions">
+        <button class="btn btn-primary" id="footerShareBtn" type="button"><svg class="icon"><use href="#i-share"></use></svg>把小屋分享给 TA</button>
+        <button class="btn btn-ghost" id="footerSettingsBtn" type="button"><svg class="icon"><use href="#i-settings"></use></svg>小屋设置</button>
+      </div>
+      <div class="footer-bottom">
+        <span>MADE WITH <b>♥</b> FOR TWO</span>
+        <span id="footerDate">2026</span>
+        <span>OUR LITTLE UNIVERSE</span>
+      </div>
+    </div>
+  </footer>
+
+  <nav class="mobile-dock" aria-label="移动端导航">
+    <a href="#home" class="is-active" data-dock="home"><svg class="icon"><use href="#i-heart"></use></svg><span>首页</span></a>
+    <a href="#time" data-dock="time"><svg class="icon"><use href="#i-calendar"></use></svg><span>时光</span></a>
+    <a href="#wishes" data-dock="wishes"><svg class="icon"><use href="#i-sparkles"></use></svg><span>心愿</span></a>
+    <a href="#photos" data-dock="photos"><svg class="icon"><use href="#i-camera"></use></svg><span>相册</span></a>
+    <button type="button" id="dockMenuBtn"><svg class="icon"><use href="#i-menu"></use></svg><span>菜单</span></button>
+  </nav>
+
+  <div class="mobile-sheet" id="mobileSheet" aria-hidden="true">
+    <div class="sheet-backdrop" data-close-sheet></div>
+    <div class="sheet-panel" role="dialog" aria-modal="true" aria-label="全部功能">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head"><strong>小屋地图</strong><button class="icon-btn" type="button" data-close-sheet aria-label="关闭菜单"><svg class="icon"><use href="#i-x"></use></svg></button></div>
+      <div class="sheet-grid">
+        <a href="#mood"><span>🌦️</span>心情天气</a>
+        <a href="#letters"><span>💌</span>悄悄话信箱</a>
+        <a href="#quiz"><span>💞</span>默契挑战</a>
+        <a href="#wheel"><span>🎡</span>命运转盘</a>
+        <a href="#badges"><span>🏅</span>恋爱成就</a>
+        <button type="button" id="sheetSettingsBtn"><span>⚙️</span>小屋设置</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 欢迎 / 初始化 -->
+  <div class="modal welcome-modal" id="welcomeModal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="welcome-panel" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+      <div class="welcome-art" aria-hidden="true">
+        <span class="welcome-circle circle-a"></span>
+        <span class="welcome-circle circle-b"></span>
+        <span class="welcome-spark">✦</span>
+        <span class="welcome-spark">✧</span>
+        <div class="welcome-heart"><svg class="icon"><use href="#i-heart"></use></svg></div>
+        <span class="welcome-ticket">ADMIT TWO · FOREVER</span>
+      </div>
+      <div class="welcome-content">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> WELCOME TO OUR LITTLE UNIVERSE</p>
+        <h2 id="welcomeTitle">先告诉我，<br>这个故事的主角是谁？</h2>
+        <p class="welcome-desc">给小屋取上你们的名字，选好故事开始的那一天。之后的每一天，都由你们一起填写。</p>
+        <form id="welcomeForm">
+          <div class="welcome-names">
+            <label class="field">
+              <span>你的名字</span>
+              <input id="welcomeA" type="text" maxlength="10" value="阿伟" autocomplete="off" required>
+            </label>
+            <span class="welcome-amp" aria-hidden="true">&amp;</span>
+            <label class="field">
+              <span>TA 的名字</span>
+              <input id="welcomeB" type="text" maxlength="10" value="欣欣" autocomplete="off" required>
+            </label>
+          </div>
+          <label class="field">
+            <span>我们在一起的那一天</span>
+            <input id="welcomeDate" type="date" value="2024-05-20" required>
+          </label>
+          <button class="btn btn-primary btn-block" type="submit">点亮我们的小屋<svg class="icon"><use href="#i-sparkles"></use></svg></button>
+        </form>
+        <button class="text-link" id="welcomeSkip" type="button">先随便逛逛，之后再设置</button>
+        <p class="welcome-privacy"><svg class="icon"><use href="#i-lock"></use></svg>不需要注册，不会上传任何数据。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 设置 -->
+  <div class="modal" id="settingsModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel modal-panel-wide" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="关闭"><svg class="icon"><use href="#i-x"></use></svg></button>
+      <p class="tiny-label">LITTLE HOUSE SETTINGS</p>
+      <h2 id="settingsTitle">把小屋，调成你们喜欢的样子</h2>
+      <form id="settingsForm">
+        <div class="settings-section">
+          <h3>关于你们</h3>
+          <div class="settings-row">
+            <label class="field"><span>名字 A</span><input id="settingsNameA" type="text" maxlength="10" required></label>
+            <label class="field"><span>名字 B</span><input id="settingsNameB" type="text" maxlength="10" required></label>
+          </div>
+          <label class="field"><span>在一起的第一天</span><input id="settingsStartDate" type="date" required></label>
+        </div>
+        <div class="settings-section">
+          <h3>小屋主题</h3>
+          <div class="theme-options" id="themeOptions">
+            <button type="button" class="theme-swatch theme-blush is-active" data-theme-choice="blush"><span></span>草莓牛奶<small>Strawberry</small></button>
+            <button type="button" class="theme-swatch theme-dusk" data-theme-choice="dusk"><span></span>暮色玫瑰<small>Dusk Rose</small></button>
+            <button type="button" class="theme-swatch theme-mint" data-theme-choice="mint"><span></span>薄荷苏打<small>Mint Soda</small></button>
+          </div>
+        </div>
+        <div class="settings-section">
+          <h3>数据与分享</h3>
+          <div class="settings-actions">
+            <button class="btn btn-soft" type="button" id="copyLinkBtn"><svg class="icon"><use href="#i-share"></use></svg>复制专属链接</button>
+            <button class="btn btn-soft" type="button" id="exportBtn"><svg class="icon"><use href="#i-download"></use></svg>导出备份</button>
+            <button class="btn btn-soft" type="button" id="importBtn"><svg class="icon"><use href="#i-upload"></use></svg>导入备份</button>
+            <input type="file" id="importInput" accept="application/json,.json" hidden>
+          </div>
+          <p class="settings-note">专属链接里会带上你们的名字和纪念日，发给 TA 就能一起打开同一间小屋。照片和留言数据仍只在本机。</p>
+        </div>
+        <div class="settings-footer">
+          <button class="btn btn-primary" type="submit">保存设置</button>
+          <button class="text-link danger" type="button" id="resetBtn">清空所有数据</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 添加纪念日 -->
+  <div class="modal" id="anniversaryModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="anniversaryTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="关闭"><svg class="icon"><use href="#i-x"></use></svg></button>
+      <p class="tiny-label">A DAY TO REMEMBER</p>
+      <h2 id="anniversaryTitle">记录一个新的纪念日</h2>
+      <form id="anniversaryForm">
+        <input type="hidden" id="anniversaryId">
+        <label class="field"><span>这一天叫什么</span><input id="anniversaryName" type="text" maxlength="20" placeholder="例如：第一次一起看海" required></label>
+        <label class="field"><span>日期</span><input id="anniversaryDate" type="date" required></label>
+        <div class="field">
+          <span>图标</span>
+          <div class="icon-picker" id="iconPicker">
+            <button type="button" class="is-active" data-icon="heart" aria-label="爱心"><svg class="icon"><use href="#i-heart"></use></svg></button>
+            <button type="button" data-icon="cake" aria-label="蛋糕"><svg class="icon"><use href="#i-cake"></use></svg></button>
+            <button type="button" data-icon="plane" aria-label="旅行"><svg class="icon"><use href="#i-plane"></use></svg></button>
+            <button type="button" data-icon="star" aria-label="星星"><svg class="icon"><use href="#i-star"></use></svg></button>
+            <button type="button" data-icon="ring" aria-label="戒指"><svg class="icon"><use href="#i-ring"></use></svg></button>
+          </div>
+        </div>
+        <label class="switch-row">
+          <input type="checkbox" id="anniversaryYearly" checked>
+          <span class="switch"></span>
+          <span><strong>每年都过一次</strong><small>适合生日、在一起纪念日</small></span>
+        </label>
+        <button class="btn btn-primary btn-block" type="submit">把它记下来</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 情话 -->
+  <div class="modal" id="quoteModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel modal-panel-quote" role="dialog" aria-modal="true" aria-labelledby="quoteTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="关闭"><svg class="icon"><use href="#i-x"></use></svg></button>
+      <span class="quote-mark">“</span>
+      <p class="tiny-label">A NOTE FOR YOU</p>
+      <h2 id="quoteTitle">今日情话</h2>
+      <blockquote id="quoteText">今天也是想和你一起浪费的一天。</blockquote>
+      <p class="quote-from" id="quoteFrom">— 我们的小宇宙</p>
+      <div class="quote-actions">
+        <button class="btn btn-primary" id="anotherQuoteBtn" type="button"><svg class="icon"><use href="#i-refresh"></use></svg>再抽一句</button>
+        <button class="btn btn-ghost" id="copyQuoteBtn" type="button">复制这句话</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 读信 -->
+  <div class="modal" id="letterModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel modal-panel-letter" role="dialog" aria-modal="true" aria-labelledby="letterModalTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="关闭"><svg class="icon"><use href="#i-x"></use></svg></button>
+      <div class="letter-paper">
+        <div class="letter-paper-head">
+          <span class="letter-seal"><svg class="icon"><use href="#i-heart"></use></svg></span>
+          <div><p class="tiny-label">A LETTER FOR US</p><h2 id="letterModalTitle">写给我们</h2></div>
+        </div>
+        <p class="letter-body" id="letterBody"></p>
+        <div class="letter-sign">
+          <span id="letterFrom">— 阿伟</span>
+          <time id="letterDate">2026.11.01</time>
+        </div>
+      </div>
+      <div class="letter-modal-actions">
+        <button class="text-link danger" id="deleteLetterBtn" type="button">删除这封信</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 照片灯箱 -->
+  <div class="modal lightbox" id="lightboxModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="照片预览">
+      <button class="lightbox-close" type="button" data-close-modal aria-label="关闭"><svg class="icon"><use href="#i-x"></use></svg></button>
+      <button class="lightbox-nav prev" type="button" id="lightboxPrev" aria-label="上一张"><svg class="icon"><use href="#i-chevron-left"></use></svg></button>
+      <figure>
+        <img id="lightboxImg" src="" alt="">
+        <figcaption id="lightboxCaption"></figcaption>
+      </figure>
+      <button class="lightbox-nav next" type="button" id="lightboxNext" aria-label="下一张"><svg class="icon"><use href="#i-chevron-right"></use></svg></button>
+      <button class="text-link danger lightbox-delete" id="lightboxDelete" type="button">删除这张照片</button>
+    </div>
+  </div>
+
+  <!-- 编辑转盘 -->
+  <div class="modal" id="wheelModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="wheelModalTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="关闭"><svg class="icon"><use href="#i-x"></use></svg></button>
+      <p class="tiny-label">CUSTOMIZE THE WHEEL</p>
+      <h2 id="wheelModalTitle">编辑转盘选项</h2>
+      <p class="modal-desc">每行一个选项，2–10 个。改完之后，转盘会重新绘制。</p>
+      <label class="field"><span id="wheelEditLabel">吃什么</span><textarea id="wheelOptionsInput" rows="8"></textarea></label>
+      <button class="btn btn-primary btn-block" id="saveWheelBtn" type="button">保存选项</button>
+    </div>
+  </div>
+
+  <!-- 通用确认 -->
+  <div class="modal" id="confirmModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-panel modal-panel-small" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <p class="tiny-label">JUST CHECKING</p>
+      <h2 id="confirmTitle">确定要这样做吗？</h2>
+      <p class="modal-desc" id="confirmDesc"></p>
+      <div class="confirm-actions">
+        <button class="btn btn-ghost" type="button" id="confirmCancel">再想想</button>
+        <button class="btn btn-primary" type="button" id="confirmOk">确定</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <canvas class="fx-canvas" id="fxCanvas" aria-hidden="true"></canvas>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
