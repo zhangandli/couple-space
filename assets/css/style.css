@@ -2453,7 +2453,14 @@ html[data-theme="dusk"] .welcome-art {
   .photo-card img { aspect-ratio: 1; }
   .photo-card .photo-caption { font-size: 12px; padding-top: 6px; }
   .photo-placeholder, .photo-add { min-height: 190px; }
-  .photo-add-wide { min-height: 82px; }
+  .photo-add-wide {
+    grid-column: auto;
+    min-height: 190px;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px;
+  }
+  .photo-add-wide small { margin-left: 0; }
   .photo-placeholder .ph-emoji { font-size: 26px; }
   .photo-placeholder p { font-size: 12px; }
   .letter-future { padding: 18px; gap: 14px; }

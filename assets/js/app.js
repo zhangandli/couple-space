@@ -2485,6 +2485,7 @@
       if (event.key.toLowerCase() === "q" && !event.metaKey && !event.ctrlKey && !event.altKey) {
         const target = event.target;
         if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
+        if ($(".modal.is-open")) return;
         showQuote(true);
       }
     });
