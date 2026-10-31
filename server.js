@@ -45,7 +45,9 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, {
       "Content-Type": types[ext] || "application/octet-stream",
       "Cache-Control": "no-cache",
-      "X-Content-Type-Options": "nosniff"
+      "X-Content-Type-Options": "nosniff",
+      "X-Robots-Tag": "noindex, nofollow",
+      "Referrer-Policy": "no-referrer"
     });
     fs.createReadStream(filePath).pipe(res);
   });

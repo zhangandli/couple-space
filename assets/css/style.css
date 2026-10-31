@@ -840,6 +840,7 @@ html[data-theme="dusk"] .marquee-track i { color: #561c32; }
   color: var(--muted);
   max-width: 520px;
 }
+.mobile-break { display: none; }
 .section-tag {
   flex: 0 0 auto;
   padding: 8px 14px;
@@ -2414,6 +2415,7 @@ html[data-theme="dusk"] .welcome-art {
   .section { padding: 74px 0; }
   .section-inner { padding: 0 20px; }
   .section-heading h2 { font-size: clamp(34px, 9vw, 46px); }
+  .mobile-break { display: initial; }
   .section-desc { font-size: 12.5px; }
   .next-card { padding: 24px; min-height: 350px; border-radius: 28px; }
   .next-card h3 { font-size: 28px; margin-bottom: 18px; }
