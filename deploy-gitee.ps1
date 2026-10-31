@@ -1,6 +1,6 @@
 $ErrorActionPreference = "Stop"
 
-$remote = "git@gitee.com:bsjdzpy/couple-space.git"
+$remote = "https://gitee.com/bsjdzpy/couple-space.git"
 
 Write-Host "Checking Gitee repository..." -ForegroundColor Cyan
 git ls-remote $remote *> $null

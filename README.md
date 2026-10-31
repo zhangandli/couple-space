@@ -55,12 +55,13 @@ preview.png                首页截图
 
 ### Gitee 源码托管
 
-1. 打开 [Gitee 新建仓库](https://gitee.com/projects/new)，仓库名填 `couple-space`，选择「公开」，**不要**勾选初始化 README。
-2. 本仓库已经配置好远程地址：
+仓库已经推送到：[gitee.com/bsjdzpy/couple-space](https://gitee.com/bsjdzpy/couple-space)。
+
+远程地址：
 
 ```bash
 git remote -v
-# origin  git@gitee.com:bsjdzpy/couple-space.git
+# origin  https://gitee.com/bsjdzpy/couple-space.git
 
 git push -u origin master
 ```
