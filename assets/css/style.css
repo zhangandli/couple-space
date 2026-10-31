@@ -40,9 +40,12 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
   --max-w: 1260px;
+  color-scheme: light;
+  accent-color: var(--pink);
 }
 
 html[data-theme="dusk"] {
+  color-scheme: dark;
   --bg: #171017;
   --bg-soft: #1e151d;
   --bg-elevated: #251a22;
