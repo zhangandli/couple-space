@@ -2225,11 +2225,13 @@
         const key = dateKey();
         if (!state.moods[key]) state.moods[key] = {};
         const existing = state.moods[key][person];
+        const noteEl = document.querySelector(`#moodNote${person.toUpperCase()}`);
+        const draftNote = noteEl ? noteEl.value.trim().slice(0, 120) : "";
         state.moods[key][person] = {
           emoji: mood.emoji,
           label: mood.label,
           tone: mood.tone,
-          note: existing?.note || ""
+          note: draftNote || existing?.note || ""
         };
         saveState();
         renderMood();
@@ -2521,6 +2523,8 @@
       const key = dateKey(now);
       if (key !== lastTodayKey) {
         lastTodayKey = key;
+        renderIdentity();
+        renderStats();
         renderMood();
         renderWeekMood();
         renderAnniversaries();
