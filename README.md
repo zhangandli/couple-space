@@ -6,13 +6,13 @@
 
 ## 现在就能访问
 
-本机已启动静态服务：
+**GitHub Pages（永久）**：https://zhangandli.github.io/couple-space/
 
-**http://127.0.0.1:4173/**
+**本机服务**：http://127.0.0.1:4173/
 
 也可以直接双击 `index.html` 打开。建议用本地服务打开，照片相册的 IndexedDB 在 `file://` 下部分浏览器会受限。
 
-> 公网预览使用临时隧道，地址只在当前服务运行期间有效。要长期公开访问，请看下方「部署」章节。
+> 仓库同时托管在 GitHub 和 Gitee。GitHub Pages 从 `main` 分支根目录发布，更新后自动重建。
 
 ## 情侣小功能
 
@@ -53,17 +53,22 @@ preview.png                首页截图
 
 ## 部署
 
-### Gitee 源码托管
+### GitHub Pages（当前使用）
 
-仓库已经推送到：[gitee.com/bsjdzpy/couple-space](https://gitee.com/bsjdzpy/couple-space)。
+仓库：[github.com/zhangandli/couple-space](https://github.com/zhangandli/couple-space)
 
-远程地址：
+GitHub Pages 已开启：`main` 分支根目录，访问 https://zhangandli.github.io/couple-space/。
 
 ```bash
-git remote -v
-# origin  https://gitee.com/bsjdzpy/couple-space.git
+git push github master:main
+```
 
-git push -u origin master
+### Gitee 镜像仓库
+
+仓库：[gitee.com/bsjdzpy/couple-space](https://gitee.com/bsjdzpy/couple-space)
+
+```bash
+git push origin master
 ```
 
 也可以直接运行：

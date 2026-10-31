@@ -1961,6 +1961,8 @@ html[data-theme="dusk"] .wheel-pointer { border-top-color: var(--pink); }
   color: rgba(255, 240, 235, 0.32);
 }
 .footer-bottom b { color: #ff9fb3; }
+.footer-links { display: inline-flex; align-items: center; gap: 7px; }
+.footer-links i { font-style: normal; opacity: 0.35; }
 .footer-source { color: inherit; transition: color 0.25s; }
 .footer-source:hover { color: #ff9fb3; }
 .footer-orbit { position: absolute; left: 50%; top: 48%; width: 820px; height: 820px; transform: translate(-50%, -50%); pointer-events: none; }
