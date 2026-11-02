@@ -4,8 +4,6 @@
 
 **名字「张选宁 & 吕燕娇」和开始日期「2026.03.28」已固定，不能通过欢迎页、设置或网址参数修改。**
 
-![首页预览](preview.png)
-
 ## 现在就能访问
 
 **GitHub Pages（永久）**：https://lvandzhang.github.io/couple-space/
