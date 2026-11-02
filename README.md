@@ -48,7 +48,6 @@ assets/js/app.js           全部交互逻辑
 assets/img/icon.svg        图标
 manifest.webmanifest       PWA 清单
 server.js                  零依赖静态服务器
-preview.png                首页截图
 ```
 
 ## 部署
