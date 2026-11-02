@@ -1,12 +1,14 @@
-# 我们的小宇宙 · Our Little Universe
+# 张选宁 & 吕燕娇 · 我们的小宇宙
 
 一个只属于两个人的恋爱小屋。纯静态网页，没有后端、没有注册、没有追踪，所有内容只保存在浏览器本地。
+
+**名字「张选宁 & 吕燕娇」和开始日期「2026.03.28」已固定，不能通过欢迎页、设置或网址参数修改。**
 
 ![首页预览](preview.png)
 
 ## 现在就能访问
 
-**GitHub Pages（永久）**：https://zhangandli.github.io/couple-space/
+**GitHub Pages（永久）**：https://lvandzhang.github.io/couple-space/
 
 **本机服务**：http://127.0.0.1:4173/
 
@@ -25,10 +27,10 @@
 - **双人默契挑战**：一个人先答 6 道题，把手机交给另一个人猜，最后揭晓默契值和逐题结果。
 - **命运转盘**：吃什么 / 去哪玩 / 谁来做，选项可自己编辑。
 - **恋爱成就**：8 枚小徽章，记录你们一起解锁的瞬间。
-- **专属链接**：把名字、纪念日和主题带在 URL 里，发给 TA 就能打开同一间小屋的「设置」。
+- **固定身份**：名字和开始日期写死在页面里，不能编辑、不能被 URL 参数覆盖。
 - **三种主题**：草莓牛奶、暮色玫瑰、薄荷苏打。
 
-所有默认名字、日期都可以在欢迎页或「小屋设置」里改；也可以在网址后加上 `?a=你的名字&b=TA的名字&date=2024-05-20` 直接生成专属链接。
+页面第一次打开会显示一封固定的欢迎信；设置里只保留主题、数据和分享，不再提供改名或改日期的入口。
 
 ## 本地运行
 
@@ -55,9 +57,9 @@ preview.png                首页截图
 
 ### GitHub Pages（当前使用）
 
-仓库：[github.com/zhangandli/couple-space](https://github.com/zhangandli/couple-space)
+仓库：[github.com/lvandzhang/couple-space](https://github.com/lvandzhang/couple-space)
 
-GitHub Pages 已开启：`main` 分支根目录，访问 https://zhangandli.github.io/couple-space/。
+GitHub Pages 已开启：`main` 分支根目录，访问 https://lvandzhang.github.io/couple-space/。
 
 ```bash
 git push github master:main

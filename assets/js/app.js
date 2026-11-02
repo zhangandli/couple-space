@@ -12,8 +12,10 @@
   const MAX_PHOTOS = 30;
   const DAY = 86400000;
   const THEMES = ["blush", "dusk", "mint"];
-  const DEFAULT_NAMES = ["阿伟", "欣欣"];
-  const DEFAULT_DATE = "2024-05-20";
+  const FIXED_NAMES = ["张选宁", "吕燕娇"];
+  const FIXED_START_DATE = "2026-03-28";
+  const DEFAULT_NAMES = [...FIXED_NAMES];
+  const DEFAULT_DATE = FIXED_START_DATE;
 
   const MOODS = [
     { emoji: "🥰", label: "甜到冒泡", tone: "love" },
@@ -215,10 +217,10 @@
     const out = { ...base, ...raw };
 
     out.version = 1;
-    out.names = Array.isArray(raw.names) && raw.names.length >= 2
-      ? raw.names.slice(0, 2).map((n, i) => String(n || "").trim().slice(0, 10) || DEFAULT_NAMES[i])
-      : [...DEFAULT_NAMES];
-    if (!parseDate(out.startDate)) out.startDate = DEFAULT_DATE;
+    // Names and the relationship start date are intentionally locked.
+    // Even an old backup or a crafted URL cannot change them.
+    out.names = [...FIXED_NAMES];
+    out.startDate = FIXED_START_DATE;
     if (!THEMES.includes(out.theme)) out.theme = "blush";
     out.onboarded = Boolean(raw.onboarded);
     out.quizBest = clamp(Number(raw.quizBest) || 0, 0, 100);
@@ -241,7 +243,25 @@
         auto: Boolean(a.auto)
       }))
       : base.anniversaries;
-    if (!Array.isArray(raw.anniversaries)) out.anniversaries = base.anniversaries;
+
+    // Keep one locked "在一起纪念日" card that always follows the fixed date.
+    const autoAnniversary = out.anniversaries.find((a) => a.auto || a.title === "在一起纪念日");
+    if (autoAnniversary) {
+      autoAnniversary.title = "在一起纪念日";
+      autoAnniversary.date = FIXED_START_DATE;
+      autoAnniversary.yearly = true;
+      autoAnniversary.icon = "heart";
+      autoAnniversary.auto = true;
+    } else {
+      out.anniversaries.unshift({
+        id: uid(),
+        title: "在一起纪念日",
+        date: FIXED_START_DATE,
+        yearly: true,
+        icon: "heart",
+        auto: true
+      });
+    }
 
     const fallbackWheels = base.wheelOptions;
     const rawWheels = raw.wheelOptions && typeof raw.wheelOptions === "object" ? raw.wheelOptions : {};
@@ -434,10 +454,6 @@
     const url = new URL(window.location.href);
     url.search = "";
     url.hash = "";
-    url.searchParams.set("a", state.names[0]);
-    url.searchParams.set("b", state.names[1]);
-    url.searchParams.set("date", state.startDate);
-    if (state.theme !== "blush") url.searchParams.set("theme", state.theme);
     return url.toString();
   }
 
@@ -474,6 +490,11 @@
 
     setText("#heroNameA", a);
     setText("#heroNameB", b);
+    const heroTitle = $(".hero-title");
+    if (heroTitle) {
+      const totalChars = Array.from(a).length + Array.from(b).length;
+      heroTitle.classList.toggle("is-long", totalChars > 4);
+    }
     setText("#orbInitialA", firstName(a));
     setText("#orbInitialB", firstName(b));
     setText("#moodNameA", a);
@@ -535,7 +556,7 @@
   }
 
   function updateDocumentTitle() {
-    document.title = `第 ${getDaysTogether()} 天 · 我们的小宇宙`;
+    document.title = `第 ${getDaysTogether()} 天 · 张选宁 & 吕燕娇`;
   }
 
   /* ---------- render: anniversaries ---------- */
@@ -570,10 +591,12 @@
             <b>${next ? (next.days === 0 ? "♥" : next.days) : "—"}</b>
             <span>${daysLabel}</span>
           </div>
-          <div class="anniversary-actions">
-            <button class="mini-btn" type="button" data-edit-anniversary="${esc(item.id)}" aria-label="编辑 ${esc(item.title)}"><svg class="icon"><use href="#i-edit"></use></svg></button>
-            <button class="mini-btn" type="button" data-delete-anniversary="${esc(item.id)}" aria-label="删除 ${esc(item.title)}"><svg class="icon"><use href="#i-trash"></use></svg></button>
-          </div>
+          ${item.auto
+            ? `<span class="anniversary-lock" title="名字与开始日期已固定" aria-label="已固定"><svg class="icon"><use href="#i-lock"></use></svg></span>`
+            : `<div class="anniversary-actions">
+                <button class="mini-btn" type="button" data-edit-anniversary="${esc(item.id)}" aria-label="编辑 ${esc(item.title)}"><svg class="icon"><use href="#i-edit"></use></svg></button>
+                <button class="mini-btn" type="button" data-delete-anniversary="${esc(item.id)}" aria-label="删除 ${esc(item.title)}"><svg class="icon"><use href="#i-trash"></use></svg></button>
+              </div>`}
         </article>`;
     }).join("");
   }
@@ -860,12 +883,6 @@
 
   /* ---------- settings form ---------- */
   function renderSettingsFields() {
-    const a = $("#settingsNameA");
-    const b = $("#settingsNameB");
-    const d = $("#settingsStartDate");
-    if (a && document.activeElement !== a) a.value = state.names[0];
-    if (b && document.activeElement !== b) b.value = state.names[1];
-    if (d && document.activeElement !== d) d.value = state.startDate;
     $$("#themeOptions [data-theme-choice]").forEach((btn) => {
       btn.classList.toggle("is-active", btn.dataset.themeChoice === state.theme);
     });
@@ -1708,29 +1725,20 @@
     openModal("quoteModal");
   }
 
-  /* ---------- settings actions ---------- */
-  function applySettings(names, startDate) {
-    const cleanA = String(names[0] || "").trim().slice(0, 10);
-    const cleanB = String(names[1] || "").trim().slice(0, 10);
-    const date = parseDate(startDate);
-    if (!cleanA || !cleanB) {
-      toast("两个名字都要填上呀");
-      return false;
-    }
-    if (!date) {
-      toast("纪念日的日期好像不太对");
-      return false;
-    }
-    state.names = [cleanA, cleanB];
-    state.startDate = startDate;
-    const auto = state.anniversaries.find((a) => a.auto);
-    if (auto) auto.date = startDate;
+  /* ---------- locked identity ---------- */
+  function persistSettings() {
     state.onboarded = true;
     saveState();
     renderAll();
     setTheme(state.theme);
     updateCountdown();
-    return true;
+  }
+
+  function completeWelcome() {
+    persistSettings();
+    closeModal("welcomeModal");
+    toast("欢迎回家，张选宁 & 吕燕娇");
+    burstConfetti(80);
   }
 
   async function exportBackup() {
@@ -1793,7 +1801,7 @@
   }
 
   async function resetHouse() {
-    askConfirm("清空整间小屋？", "名字、纪念日、心愿、心情、照片和信都会被删除，而且不能恢复。建议先导出备份。", async () => {
+    askConfirm("清空整间小屋？", "心愿、心情、照片和信都会被删除，而且不能恢复。名字和开始日期是固定的，不会受影响；建议先导出备份。", async () => {
       try {
         localStorage.removeItem(STORAGE_KEY);
         await dbClearPhotos().catch(() => {});
@@ -1807,41 +1815,18 @@
 
   /* ---------- welcome ---------- */
   function openWelcome() {
-    const a = $("#welcomeA");
-    const b = $("#welcomeB");
-    const d = $("#welcomeDate");
-    if (a) a.value = state.names[0] || DEFAULT_NAMES[0];
-    if (b) b.value = state.names[1] || DEFAULT_NAMES[1];
-    if (d) d.value = state.startDate || DEFAULT_DATE;
     openModal("welcomeModal");
   }
 
-  /* ---------- URL params ---------- */
-  function applyUrlParams() {
-    let changed = false;
-    let params;
-    try { params = new URLSearchParams(window.location.search); } catch { return; }
-    const a = (params.get("a") || "").trim().slice(0, 10);
-    const b = (params.get("b") || "").trim().slice(0, 10);
-    const date = params.get("date");
-    const theme = params.get("theme");
-    if (a && b) {
-      state.names = [a, b];
-      state.onboarded = true;
-      changed = true;
+  function cleanLockedUrl() {
+    try {
+      if (!window.location.search) return;
+      const url = new URL(window.location.href);
+      url.search = "";
+      window.history.replaceState({}, "", url.pathname + url.hash);
+    } catch {
+      // file:// or an old browser may not allow replaceState; the UI is still locked.
     }
-    if (parseDate(date)) {
-      state.startDate = date;
-      const auto = state.anniversaries.find((item) => item.auto);
-      if (auto) auto.date = date;
-      changed = true;
-    }
-    if (THEMES.includes(theme)) {
-      state.theme = theme;
-      changed = true;
-    }
-    if (params.get("welcome") === "1") state.onboarded = false;
-    if (changed) saveState();
   }
 
   /* ---------- navigation & scroll ---------- */
@@ -1961,15 +1946,9 @@
     if (settingsForm) {
       settingsForm.addEventListener("submit", (event) => {
         event.preventDefault();
-        const ok = applySettings([
-          $("#settingsNameA")?.value,
-          $("#settingsNameB")?.value
-        ], $("#settingsStartDate")?.value);
-        if (ok) {
-          closeModal("settingsModal");
-          toast("小屋已经换上新名字啦");
-          burstConfetti(55);
-        }
+        persistSettings();
+        closeModal("settingsModal");
+        toast("小屋设置已保存");
       });
     }
 
@@ -2000,22 +1979,7 @@
     if (welcomeForm) {
       welcomeForm.addEventListener("submit", (event) => {
         event.preventDefault();
-        const ok = applySettings([$("#welcomeA")?.value, $("#welcomeB")?.value], $("#welcomeDate")?.value);
-        if (ok) {
-          closeModal("welcomeModal");
-          toast("小屋点亮啦，欢迎回家");
-          burstConfetti(80);
-        }
-      });
-    }
-    const skip = $("#welcomeSkip");
-    if (skip) {
-      skip.addEventListener("click", () => {
-        state.onboarded = true;
-        saveState();
-        closeModal("welcomeModal");
-        renderBadges();
-        toast("先随便逛逛，设置里随时可以改名字");
+        completeWelcome();
       });
     }
 
@@ -2539,7 +2503,7 @@
 
   /* ---------- init ---------- */
   function init() {
-    applyUrlParams();
+    cleanLockedUrl();
     setTheme(state.theme);
     renderAll();
     initEvents();
